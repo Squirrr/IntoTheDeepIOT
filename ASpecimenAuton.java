@@ -1,3 +1,4 @@
+//ASpecimenAuton
 /*
 Copyright 2026 FIRST Tech Challenge Team 21330
 
@@ -38,7 +39,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 @Autonomous()
 
-public class AAuton extends LinearOpMode {
+public class ASpecimenAuton extends LinearOpMode {
     
     ElapsedTime timer;
     public DcMotorEx lslide;
@@ -137,7 +138,7 @@ public class AAuton extends LinearOpMode {
                 rb.setPower(0.0);
             }
             extendTarget=0;
-            while (timer.seconds() < 3.5) {
+            while (timer.seconds() < 4.0) {
                 lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
                 rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
                 claw.setPosition(0.37);
@@ -148,7 +149,7 @@ public class AAuton extends LinearOpMode {
                 lb.setPower(0.25);
                 rb.setPower(0.25);
             }
-            while (timer.seconds() < 5.5) {
+            while (timer.seconds() < 6) {
                 lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
                 rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
                 lservo.setPosition(0.01);
@@ -157,51 +158,6 @@ public class AAuton extends LinearOpMode {
                 rf.setPower(-0.5);
                 lb.setPower(-0.5);
                 rb.setPower(0.5);
-            }
-            extendTarget=250;
-            while (timer.seconds() < 6.5) {
-                lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
-                rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
-                lservo.setPosition(0.01);
-                rservo.setPosition(0.99);
-                lf.setPower(-0.5);
-                rf.setPower(-0.5);
-                lb.setPower(-0.5);
-                rb.setPower(-0.5);
-            }
-            while (timer.seconds() < 7.0) {
-                lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
-                rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
-                lservo.setPosition(0.01);
-                rservo.setPosition(0.99);
-                lf.setPower(0.5);
-                rf.setPower(-0.5);
-                lb.setPower(0.5);
-                rb.setPower(-0.5);
-            }
-            
-            timer.reset();
-            // lservo.setPosition(0.73);
-            // rservo.setPosition(0.27);
-            extendTarget = 250;
-            
-            while (timer.seconds() < 2) {
-                lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
-                rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
-                lf.setPower(-0.25);
-                rf.setPower(-0.25);
-                lb.setPower(-0.25);
-                rb.setPower(-0.25);
-            }
-            while (timer.seconds() < 30) {
-                lslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()));
-                rslide.setPower(-controller.calculate(extendTarget, lslide.getCurrentPosition()+10));
-                lservo.setPosition(lservo.getPosition());
-                rservo.setPosition(rservo.getPosition());
-                lf.setPower(0.0);
-                rf.setPower(0.0);
-                lb.setPower(0.0);
-                rb.setPower(0.0);
             }
         }
     }
