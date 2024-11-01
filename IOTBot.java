@@ -1,3 +1,4 @@
+//IOTBot
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -27,7 +28,7 @@ public class IOTBot extends LinearOpMode {
       //  Servo wrist = hardwareMap.servo.get("wrist");
         Servo ls = hardwareMap.servo.get("ls");
         Servo rs = hardwareMap.servo.get("rs");
-        Servo lservo = hardwareMap.servo.get("lservo");
+        Servo clawNew = hardwareMap.servo.get("lservo");
         Servo rservo = hardwareMap.servo.get("rservo");
         Servo claw = hardwareMap.servo.get("claw");
         lslide = hardwareMap.get(DcMotorEx.class, "lslide");
@@ -65,7 +66,7 @@ public class IOTBot extends LinearOpMode {
         double lefty1, leftx1, rightx1, armpos, sliderpos;
         rs.setPosition(1);
         ls.setPosition(0);
-        lservo.setPosition(0);
+        clawNew.setPosition(0);
         rservo.setPosition(1);
         
 
@@ -90,25 +91,30 @@ public class IOTBot extends LinearOpMode {
                 ls.setPosition(0);
             }
             if (gamepad1.x || gamepad2.x) {
-                lservo.setPosition(0.73);
+                // clawNew.setPosition(0.73);
                 rservo.setPosition(0.27);
                 telemetry.addLine("x");
             }
+            if (gamepad1.y || gamepad2.y) {
+                extendTarget=2400;
+                // clawNew.setPosition(0.5);
+                rservo.setPosition(0.5);
+            }
             if (gamepad1.a || gamepad2.a) {
-                lservo.setPosition(0);
+                // clawNew.setPosition(0);
                 rservo.setPosition(1);
                 extendTarget = 0;
             }
              if (gamepad1.right_bumper || gamepad2.right_bumper) {
-               claw.setPosition(0);
+               clawNew.setPosition(0.01);
                
             }
-             if (gamepad2.left_bumper) {
-                claw.setPosition(0.37);
+             if (gamepad1.left_bumper || gamepad2.left_bumper) {
+                clawNew.setPosition(1.0);
             }
-            if (gamepad2.b){
-                lservo.setPosition(1);
-                rservo.setPosition(0);
+            if (gamepad1.b || gamepad2.b){
+                // clawNew.setPosition(0);
+                rservo.setPosition(1);
             }
             if(gamepad2.dpad_left){
                 extendTarget = 850;
@@ -118,6 +124,9 @@ public class IOTBot extends LinearOpMode {
                 power = 0.3; // Low speed mode
             } else {
                 power = 1.0; // Full power driving
+            }
+            if (extendTarget>1000) {
+                power = 0.5;
             }
             
             lf.setPower((power * -lefty1) + (power * leftx1) + power * rightx1);
@@ -136,7 +145,7 @@ public class IOTBot extends LinearOpMode {
                 // rslide.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
                 extendTarget = 250;
                 // rslide.setPower((250-lslide.getCurrentPosition()) * 1);
-                //lservo.setPosition(0.6);
+                //clawNew.setPosition(0.6);
             //   rservo.setPosition(0.4);
                 telemetry.addLine("dpad up");
             } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
@@ -147,7 +156,7 @@ public class IOTBot extends LinearOpMode {
                 // rslide.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
                 // lslide.setPower((5-lslide.getCurrentPosition()) * 0.003);
                 // rslide.setPower((5-lslide.getCurrentPosition()) * 0.003);
-                lservo.setPosition(0);
+                clawNew.setPosition(0);
                 rservo.setPosition(1);
                 extendTarget = 0;
                 claw.setPosition(0.37);
@@ -155,8 +164,8 @@ public class IOTBot extends LinearOpMode {
                 telemetry.addLine("dpad down");
             }
             if(gamepad1.right_trigger > 0.075){
-                ls.setPosition(1);
-                rs.setPosition(0);
+                ls.setPosition(0.89);
+                rs.setPosition(0.11);
             } else {
                 ls.setPosition(0);
                 rs.setPosition(1);
@@ -171,7 +180,7 @@ public class IOTBot extends LinearOpMode {
             telemetry.addData("low power mode:", gamepad1.right_bumper);
             telemetry.addData("lslide pos", lslide.getCurrentPosition());
             telemetry.addData("rslide pos", rslide.getCurrentPosition());
-            telemetry.addData("l outtake servo pos", lservo.getPosition());
+            telemetry.addData("l outtake servo pos", clawNew.getPosition());
             telemetry.addData("extendtarget", extendTarget);
             telemetry.addData("extendPIDF", controller.calculate(lslide.getCurrentPosition(), extendTarget));
             telemetry.addData("Version", "2");
